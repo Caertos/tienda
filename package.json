@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "backend": "cd backend && node index.js",
+    "mobile": "cd mobile-app && npm run start"
+  }
+}
