@@ -20,7 +20,7 @@ type Props = StackScreenProps<RootStackParamList, 'DetalleCliente'>;
 export default function DetalleClienteScreen({ route, navigation }: Props) {
   const { clienteId, clienteNombre } = route.params;
 
-  const [pedidos, setPedidos] = useState<Array<{ id: number; descripcion: string; monto: number; fecha: string }>>([]);
+  const [pedidos, setPedidos] = useState<Array<{ id: number; monto_total: number; fecha: string }>>([]);
   const [pagos, setPagos]     = useState<Array<{ id: number; monto: number; fecha: string }>>([]);
   const [cargando, setCargando] = useState<boolean>(false);
   const [saldo, setSaldo]       = useState<number>(0);
@@ -45,7 +45,7 @@ export default function DetalleClienteScreen({ route, navigation }: Props) {
       setPagos(pagosData);
 
       // Calcular saldo: suma de pedidos menos suma de pagos
-      const totalPedidos = pedidosData.reduce((sum, p) => sum + Number(p.monto), 0);
+      const totalPedidos = pedidosData.reduce((sum, p) => sum + Number(p.monto_total), 0);
       const totalPagos   = pagosData.reduce((sum, p) => sum + Number(p.monto), 0);
       setSaldo(totalPedidos - totalPagos);
     } catch (error) {
@@ -58,8 +58,8 @@ export default function DetalleClienteScreen({ route, navigation }: Props) {
 
   const renderPedido = ({ item }: { item: any }) => (
     <View style={styles.row}>
-      <Text style={styles.desc}>{item.descripcion || '—'}</Text>
-      <Text style={styles.monto}>${item.monto.toFixed(2)}</Text>
+      <Text style={styles.desc}>Pedido #{item.id}</Text>
+      <Text style={styles.monto}>${item.monto_total.toFixed(2)}</Text>
     </View>
   );
 

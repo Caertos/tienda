@@ -86,7 +86,7 @@ app.get('/api/test', (req, res) => {
 });
 
 // Ruta para crear pedido
-app.post('/pedidos', async (req, res) => {
+app.post('/crearPedido/:id', async (req, res) => {
   console.log('Recibiendo pedido:', req.body);
   const connection = await getConnection();
   try {
@@ -101,7 +101,7 @@ app.post('/pedidos', async (req, res) => {
     // Iniciar transacción
     await connection.beginTransaction();
 
-    // Crear el pedido
+    // Crear el pedido (asegúrate de incluir monto_total)
     const [resultPedido] = await connection.execute(
       'INSERT INTO pedido (cliente_id, monto_total) VALUES (?, ?)',
       [cliente_id, monto_total]
@@ -127,7 +127,7 @@ app.post('/pedidos', async (req, res) => {
     console.error('Error al crear pedido:', error);
     res.status(500).json({ error: 'Error al crear el pedido' });
   } finally {
-    connection.release();
+    await connection.end();
   }
 });
 

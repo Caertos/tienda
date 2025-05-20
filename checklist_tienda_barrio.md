@@ -1,4 +1,3 @@
-
 # ✅ Checklist – App para Tienda de Barrio
 
 ## 🛠️ Configuración inicial
@@ -10,7 +9,7 @@
 ## 📦 Base de datos local (SQLite)
 - [X] Crear base de datos y conectar al backend
 - [X] Crear tabla `cliente`
-- [X] Crear tabla `pedido`
+- [X] Crear tabla `pedido` (estructura correcta con monto_total)
 - [X] Crear tabla `pago`
 - [X] Probar inserción y consulta básica de datos
 - [ ] Verificar que se mantiene al reiniciar la app
